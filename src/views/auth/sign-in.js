@@ -20,7 +20,11 @@ import { loginUser, clearLoginState } from "../../store/login/loginSlice";
 
 import { toast } from "react-toastify";
 
+
 const SignIn = memo(() => {
+
+
+
   const appName = useSelector(SettingSelector.app_name);
   let history = useHistory();
   const dispatch = useDispatch();
@@ -63,11 +67,17 @@ const SignIn = memo(() => {
     }
   }, [loginError, loginSuccess]);
 
+
+ 
+
   return (
     <Fragment>
       <section className="login-content">
+       
         <Row className="m-0 align-items-center bg-white vh-100">
+        
           <Col md="6">
+         
             <Row className="justify-content-center">
               <Col md="10">
                 <Card className="card-transparent shadow-none d-flex justify-content-center mb-0 auth-card">
@@ -78,7 +88,7 @@ const SignIn = memo(() => {
                     >
                       <div className="mb-4">
                         <div className="logo-normal">
-                         <h1>DEMO</h1>
+                         <h1>Listing App</h1>
                         </div>
                       </div>
                     </Link>

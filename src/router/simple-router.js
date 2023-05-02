@@ -3,10 +3,17 @@ import { Switch, Route } from "react-router-dom";
 
 import Loading1 from "../components/custom/loading1";
 
+
+
 // auth
 
 const SignIn = lazy(() => import("../views/auth/sign-in"));
 const SignUp = lazy(() => import("../views/auth/sign-up"));
+
+// shop
+
+const Shop = lazy(()=>import("../views/shops/Shop"))
+
 // errors
 const Error404 = lazy(() => import("../views/errors/error404"));
 const Error500 = lazy(() => import("../views/errors/error500"));
@@ -20,7 +27,6 @@ const SimpleRouter = memo(() => {
        
         <Route exact path="/auth/sign-in" component={SignIn} />
         <Route exact path="/auth/sign-up" component={SignUp} />
-
 
         {/* error */}
         <Route exact path="/errors/error404" component={Error404} />

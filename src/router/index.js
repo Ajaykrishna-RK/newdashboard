@@ -13,6 +13,13 @@ import ScrollTop from "../components/ScrollTop";
 
 const userRoutes = [
   { path: "/dashboard", component: Default },
+  { path: "/dashboard", component: Default },
+  { path: "/shops", component: Default },
+  { path: "/users", component: Default },
+  { path: "/subscriptionsandrenewal", component: Default },
+  { path: "/staffandhr", component: Default },
+  { path: "/accounting", component: Default },
+  { path: "/setting", component: Default },
   { path: "/", component: () => <Redirect to="/dashboard" /> },
   {
     path: "/errors/error404",
