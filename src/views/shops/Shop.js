@@ -1,29 +1,34 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import {  Tab, Tabs } from 'react-bootstrap'
 import ListOfShops from './listofshops/ListOfShops';
 import AddShop from './addnewShop/AddShop';
 import NewShopRequests from './newshoprequest/NewShopRequests';
 
 
+
+
 function Shop() {
+
+  const [modal,setModal] = useState(false)
+
   return (
     <div>
        <Fragment>
      
-        
-            <Tabs
+{modal ? <AddShop setModal={setModal}/> : <Tabs
       defaultActiveKey="shoplist"
       id="uncontrolled-tab-example"
       className="mb-3 justify-content-start"
     >
       <Tab eventKey="shoplist" title="ShopList">
-       <ListOfShops/>
+       <ListOfShops modal={modal} setModal={setModal}/>
       </Tab>
       <Tab eventKey="newshoprequests" title="New Shop Requests">
         <NewShopRequests/>
       </Tab>
       
-    </Tabs>
+    </Tabs>  }
+            
               
       
            

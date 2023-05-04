@@ -34,6 +34,7 @@ const Default = memo((props) => {
   return (
     <Fragment>
       <Loader />
+      
       <Sidebar app_name={appName} />
       <main className={`main-content`} style={{backgroundColor:"#EFF8FB"}}>
         <div className={`${commanclass} position-relative `}>

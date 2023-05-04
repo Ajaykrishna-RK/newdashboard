@@ -19,6 +19,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { loginUser, clearLoginState } from "../../store/login/loginSlice";
 
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 
 const SignIn = memo(() => {
@@ -40,11 +41,27 @@ const SignIn = memo(() => {
     dispatch(clearLoginState());
   }, []);
 
-  const login = (e) => {
-    e.preventDefault();
-    // dispatch(loginUser({ username, password }));
-    history.push("/dashboard");
-  };
+  // const login = (e) => {
+  //   e.preventDefault();
+  //   dispatch(loginUser({ username, password }));
+  //   history.push("/dashboard");
+  // };
+
+
+  const Login = (e) =>{
+    e.preventDefault()
+if(username === "ajay" && password == 123){
+  history.push("/dashboard")
+  Swal.fire({
+    title: 'Logged In',
+    text: 'Successfully logged In',
+  icon:"success",
+    confirmButtonText: 'ok'
+  })
+}else{
+  alert("login error")
+}
+  }
 
   useEffect(() => {
     if (loginError) {
@@ -94,7 +111,7 @@ const SignIn = memo(() => {
                     </Link>
                     <h2 className="mb-2 text-center">Sign In</h2>
                     <p className="text-center">Login to stay connected.</p>
-                    <Form onSubmit={(e) => login(e)}>
+                    <Form onSubmit={(e) => Login(e)}>
                       <Row>
                         <Col lg="12">
                           <Form.Group className="form-group">
@@ -143,7 +160,7 @@ const SignIn = memo(() => {
                       </Row>
                       <div className="d-flex justify-content-center">
                         <Button
-                          onClick={(e) => login(e)}
+                         
                           type="submit"
                           variant="btn btn-primary"
                         >

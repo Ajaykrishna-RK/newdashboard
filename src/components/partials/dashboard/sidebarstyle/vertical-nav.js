@@ -72,7 +72,7 @@ const VerticalNav = memo(() => {
           </Link> */}
         </li>
 
-        <li
+        {/* <li
           style={
             location.pathname === "/auth/sign-in"
               ? { background: "#eff8fb", borderRadius: "6px" }
@@ -122,7 +122,7 @@ const VerticalNav = memo(() => {
               Login
             </span>
           </Link>
-        </li>
+        </li> */}
 
 
         <li

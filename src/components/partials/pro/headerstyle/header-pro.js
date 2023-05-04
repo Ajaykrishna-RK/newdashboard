@@ -28,6 +28,7 @@ import * as SettingSelector from "../../../../store/setting/selectors";
 import { theme_scheme_direction } from "../../../../store/setting/reducers";
 
 import RadioBtn from "../../../setting/elements/radio-btn";
+import Swal from "sweetalert2";
 
 const Headerpro = memo((props) => {
   const history = useHistory();
@@ -93,12 +94,23 @@ const Headerpro = memo((props) => {
     }
   });
 
-  const logout = () => {
-    localStorage.removeItem("admin-token");
-    localStorage.removeItem("username");
-    localStorage.removeItem("userID");
-    history.push("/auth/sign-in");
-  };
+  // const logout = () => {
+  //   localStorage.removeItem("admin-token");
+  //   localStorage.removeItem("username");
+  //   localStorage.removeItem("userID");
+  //   history.push("/auth/sign-in");
+  // };
+
+  const Logout = () =>{
+    Swal.fire({
+      title: 'Logout',
+      text: 'Account Logout',
+      icon: 'logout',
+      confirmButtonText: 'ok'
+    })
+   history.push("/auth/sign-in")
+    
+  }
 
   const [show, setShow] = useState(true);
 
@@ -173,6 +185,8 @@ const Headerpro = memo((props) => {
 
   const handleClose1 = () => setShow4(false);
   const handleShow1 = () => setShow4(true);
+
+  
 
   return (
     <Navbar expand="xl" className={`nav iq-navbar ${headerNavbar} `}>
@@ -429,6 +443,8 @@ const Headerpro = memo((props) => {
                 </div>
               </Nav.Link>
             </Nav.Item>
+           
+
             <Dropdown as="li" className="nav-item iq-tour ps-3 ps-lg-0">
               <Dropdown.Toggle
                 as={CustomToggle}
@@ -455,11 +471,18 @@ const Headerpro = memo((props) => {
                     </svg>
                   </span>
                 </div>
+              
               </Dropdown.Toggle>
 
               <Dropdown.Menu variant="end mt-3">
                 
-                <Dropdown.Item onClick={() => logout()}>Logout</Dropdown.Item>
+                {/* <Dropdown.Item > */}
+<div className="justify-content-center align-items-center d-flex">
+<button style={{backgroundColor:"#fff",border:"none"}} onClick={() => Logout()}>Logout</button>
+</div>
+
+
+                {/* </Dropdown.Item> */}
               </Dropdown.Menu>
             </Dropdown>
           </ul>

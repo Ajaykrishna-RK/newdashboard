@@ -11,6 +11,8 @@ import Authmiddleware from "../router/Authmiddleware";
 
 import ScrollTop from "../components/ScrollTop";
 
+
+
 const userRoutes = [
   { path: "/dashboard", component: Default },
   { path: "/dashboard", component: Default },
@@ -20,7 +22,7 @@ const userRoutes = [
   { path: "/staffandhr", component: Default },
   { path: "/accounting", component: Default },
   { path: "/setting", component: Default },
-  { path: "/", component: () => <Redirect to="/dashboard" /> },
+  { path: "/", component: () => <Redirect to="/auth/sign-in" /> },
   {
     path: "/errors/error404",
     component: Simple,
@@ -36,13 +38,13 @@ const IndexRouters = memo(() => {
   return (
     <ScrollTop>
       <Switch>
-        {authRoutes.map((route, idx) => (
-          <Authmiddleware
-            path={route.path}
-            component={route.component}
-            key={idx}
-            isAuthProtected={false}
-          />
+      {authRoutes.map((route, idx) => (
+        <Authmiddleware
+          path={route.path}
+          component={route.component}
+          key={idx}
+          isAuthProtected={false}
+        />
         ))}
         {userRoutes.map((route, idx) => (
           <Authmiddleware
