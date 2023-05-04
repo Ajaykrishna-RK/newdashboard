@@ -73,12 +73,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Nidheesh-enfono/CHMS.git"
+    "url": ""
   },
   "author": "nidheesh",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Nidheesh-enfono/CHMS/issues"
+    "url": ""
   },
   "browserslist": {
     "production": [
