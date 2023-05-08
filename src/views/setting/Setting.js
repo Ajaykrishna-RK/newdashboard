@@ -52,9 +52,10 @@ function Setting() {
                   {item.icon}
                   </td>
                 <td>{item.location}</td>
-                <td style={{cursor:"pointer"}}><button onClick={handleShow}>
-      Edit
-      </button></td>
+                <td style={{cursor:"pointer"}}>
+                <Button variant="primary "onClick={handleShow}>Edit</Button>
+        
+      </td>
                 </tr>
             ))}
           

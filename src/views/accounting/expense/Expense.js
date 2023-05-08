@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import { Table } from 'react-bootstrap'
+import { Button, Table } from 'react-bootstrap'
 import Editexpense from './Editexpense'
 import Addexpense from './Addexpense'
 
@@ -30,6 +30,7 @@ const expenseLists = [
   ]
 
 
+
 function Expense() {
 
           
@@ -44,12 +45,21 @@ function Expense() {
   const handleAddClose = () => setAddExpense(false);
   const handleAddShow = () => setAddExpense(true);
 
-
+  const handleDelete = ()=>{
+    Swal.fire({
+      title: 'Delete!',
+      text: 'Do you want to delete',
+      icon: 'error',
+      showCancelButton: true,
+      confirmButtonText: 'delete'
+    })
+  }
 
   return (
     <div>
         <div className="justify-content-end align-items-end d-flex">
-            <button onClick={handleAddShow }>Add Expense</button>
+        <Button variant="primary "onClick={handleAddShow}>Add Expense</Button>
+         
         </div>
 
 
@@ -72,10 +82,9 @@ function Expense() {
                 <td>{item.expenseSource}</td>
                 <td>{item.Rupees}</td>
                 <td>
-                  <button className="m-1" onClick={handleEditShow}>
-                    edit
-                  </button>
-                  <button>delete</button>
+                <Button variant="primary " className='m-1' onClick={handleEditShow}>Edit</Button>
+                <Button variant="primary " onClick={handleDelete}>Delete</Button>
+                 
                 </td>
               </tr>
             </>

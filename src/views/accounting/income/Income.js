@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import { Table } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import AddIncome from "./AddIncome";
 import EditIncome from "./EditIncome";
 import Swal from "sweetalert2";
@@ -50,13 +50,15 @@ function Income() {
       title: 'Delete!',
       text: 'Do you want to delete',
       icon: 'error',
+      showCancelButton: true,
       confirmButtonText: 'delete'
     })
   }
   return (
     <div>
         <div className="justify-content-end align-items-end d-flex">
-            <button onClick={handleAddShow}>Add Income</button>
+        <Button variant="primary "onClick={handleAddShow}>Add Income</Button>
+           
         </div>
 
 
@@ -79,10 +81,9 @@ function Income() {
                 <td>{item.incomeSource}</td>
                 <td>{item.Rupees}</td>
                 <td>
-                  <button className="m-1" onClick={handleEditShow}>
-                    edit
-                  </button>
-                  <button onClick={handleDelete}>delete</button>
+                <Button variant="primary "className="m-1" onClick={handleEditShow}>Edit</Button>
+                <Button variant="primary "onClick={handleDelete}>Delete</Button>
+                 
                 </td>
               </tr>
             </>

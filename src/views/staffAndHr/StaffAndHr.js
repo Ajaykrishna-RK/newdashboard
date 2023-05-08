@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Card, Col, Container, Row, Table } from 'react-bootstrap'
+import { Button, Card, Col, Container, Row, Table } from 'react-bootstrap'
 import EditStaff from './EditStaff';
 
 import Swal from 'sweetalert2'
@@ -47,6 +47,7 @@ const handleDelete = ()=>{
     title: 'Delete!',
     text: 'Do you want to delete',
     icon: 'error',
+    showCancelButton: true,
     confirmButtonText: 'delete'
   })
 }
@@ -88,8 +89,9 @@ const handleDelete = ()=>{
  <td>{item.email}</td>
  <td>{item.role}</td>
 <td> 
-  <button className="m-1" onClick={handleEditShow} >edit</button>
-  <button onClick={handleDelete}>delete</button>
+<Button variant="primary "className="m-1"  onClick={handleEditShow}>Edit</Button>
+<Button variant="primary " onClick={handleDelete}>Delete</Button>
+
 </td>
 </tr>
          

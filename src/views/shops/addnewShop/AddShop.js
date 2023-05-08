@@ -11,11 +11,8 @@ function AddShop({setModal}) {
   return (
     <div>
       <div className="justify-content-end align-items-end d-flex">
-      <button onClick={()=>setModal(false)} style={{border:"none"}}>back</button>
+      <Button variant="primary " onClick={()=>setModal(false)}>back</Button>
       </div>
-
-      
-
       <Form >
         <Row className="mb-3">
           <Form.Group controlId="formGridEmail">

@@ -50,6 +50,7 @@ const handleDelete = ()=>{
     title: 'Delete!',
     text: 'Do you want to delete',
     icon: 'error',
+    showCancelButton: true,
     confirmButtonText: 'delete'
   })
 }
@@ -78,8 +79,9 @@ const handleDelete = ()=>{
  <td>{item.Name}</td>
  <td>{item.email}</td>
 <td> 
-  <button className="m-1" onClick={handleEditUser} >edit</button>
-  <button onClick={handleDelete}>delete</button>
+<Button variant="primary "className="m-1" onClick={handleEditUser} >Edit</Button>
+<Button variant="primary "onClick={handleDelete}>Delete</Button>
+
 </td>
 </tr>
          

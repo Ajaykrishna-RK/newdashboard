@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import { Table } from 'react-bootstrap'
+import { Button, Table } from 'react-bootstrap'
 import { Tabledata } from './tableDatas'
 import NoData from '../../../components/partials/components/nodata/NoData'
 import AddShop from '../addnewShop/AddShop'
@@ -19,7 +19,8 @@ const tableth = ["Sl no","Name","Business address","Contact details","Products a
 
   <div>
 <div className="justify-content-end align-items-end d-flex mt-2">
-<button onClick={()=>setModal(true)} style={{border:"none"}}>AddShop</button>
+<Button variant="primary " onClick={()=>setModal(true)}>AddShop</Button>
+
 </div>
 <Table responsive="sm" className="mt-3">
         <thead>

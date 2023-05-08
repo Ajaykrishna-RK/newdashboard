@@ -102,12 +102,7 @@ const Headerpro = memo((props) => {
   // };
 
   const Logout = () =>{
-    Swal.fire({
-      title: 'Logout',
-      text: 'Account Logout',
-      icon: 'logout',
-      confirmButtonText: 'ok'
-    })
+   
    history.push("/auth/sign-in")
     
   }

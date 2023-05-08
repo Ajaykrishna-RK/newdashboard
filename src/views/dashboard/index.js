@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 //swiper
 import SwiperCore, { Navigation } from "swiper";
 import { useHistory } from "react-router-dom";
+import  ChartData  from "./ChartData";
 
 
 // install Swiper modules
@@ -44,7 +45,7 @@ const dashboardDatas = [
           {dashboardDatas.map((item)=>(
             <div className="d-flex flex-column">
         
-      <Card style={{ width: '18rem' }} >
+      <Card style={{ width: '20rem'}}  >
       <Card.Body className="text-center">
         <Card.Title>{item.title}</Card.Title>
        
@@ -62,6 +63,7 @@ const dashboardDatas = [
         </Col>
         
       </Row>
+      <ChartData/>
     </Fragment>
   );
 });

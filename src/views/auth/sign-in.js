@@ -20,6 +20,7 @@ import { loginUser, clearLoginState } from "../../store/login/loginSlice";
 
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import ValidationErrors from "./ValidationErrors";
 
 
 const SignIn = memo(() => {
@@ -47,19 +48,14 @@ const SignIn = memo(() => {
   //   history.push("/dashboard");
   // };
 
-
+  const [validationError,setValidationError] = useState(false)
   const Login = (e) =>{
     e.preventDefault()
 if(username === "ajay" && password == 123){
   history.push("/dashboard")
-  Swal.fire({
-    title: 'Logged In',
-    text: 'Successfully logged In',
-  icon:"success",
-    confirmButtonText: 'ok'
-  })
+ 
 }else{
-  alert("login error")
+  setValidationError(false)
 }
   }
 
@@ -144,6 +140,7 @@ if(username === "ajay" && password == 123){
                               placeholder=" "
                             />
                           </Form.Group>
+                          {validationError && <ValidationErrors/>}
                         </Col>
                         <Col lg="12" className="d-flex justify-content-between">
                           <Form.Check className="form-check mb-3">
