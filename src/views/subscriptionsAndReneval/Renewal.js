@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table } from 'react-bootstrap'
+import { Button, Table } from 'react-bootstrap'
 import Swal from 'sweetalert2';
 
 
@@ -37,9 +37,9 @@ function Renewal() {
     <div>
 
 
-<Table responsive="sm" className="mt-3">
+<Table responsive="sm" className="mt-3" striped bordered>
         <thead>
-          <tr>
+          <tr style={{backgroundColor:"#DCDCDC"}}>
             {tableth.map((item) => (
               <th>{item}</th>
             ))}
@@ -48,13 +48,14 @@ function Renewal() {
         <tbody>
           {renewal.map((item) => (
             <>
-              <tr>
+              <tr style={{backgroundColor:"#fff"}}>
                 <td>{item.id}</td>
 
                 <td>{item.userName}</td>
                 <td>{item.userEmail}</td>
                 <td>
-                    <button onClick={handleRenewal}>Add Renewal</button>
+                <Button variant="primary " onClick={handleRenewal}>Add Renewal</Button>
+                  
                 </td>
               </tr>
             </>

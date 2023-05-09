@@ -37,7 +37,7 @@ function Setting() {
     <div>
       <Table responsive="md" striped bordered>
         <thead>
-          <tr>
+          <tr style={{backgroundColor:"#DCDCDC"}}>
             {ths.map((item) => (
               <th>{item}</th>
             ))}
@@ -46,7 +46,7 @@ function Setting() {
         <tbody>
          
             {datas.map((item) => (
-               <tr>
+               <tr style={{backgroundColor:"#fff"}}>
                 <td>{item.id}</td>
                 <td>
                   {item.icon}

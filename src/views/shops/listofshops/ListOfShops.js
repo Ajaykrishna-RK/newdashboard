@@ -22,10 +22,10 @@ const tableth = ["Sl no","Name","Business address","Contact details","Products a
 <Button variant="primary " onClick={()=>setModal(true)}>AddShop</Button>
 
 </div>
-<Table responsive="sm" className="mt-3">
+<Table responsive="sm" className="mt-3" striped bordered>
         <thead>
         
-                <tr>
+                <tr style={{backgroundColor:"#DCDCDC"}}>
                 {tableth.map((item)=>(
                     <th>{item}</th>
                     ))}
@@ -39,7 +39,7 @@ const tableth = ["Sl no","Name","Business address","Contact details","Products a
 {Tabledata.length !== 0 ? (
   <>
    {Tabledata.map((item)=>(
-    <tr>
+    <tr style={{backgroundColor:"#fff"}}>
     <td>{item.id}</td>
     <td>{item.Name}</td>
     <td>{item.Businessaddress}</td>

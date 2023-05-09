@@ -64,9 +64,9 @@ function Income() {
 
 
 
-      <Table responsive="sm" className="mt-3">
+      <Table responsive="sm" className="mt-3" striped bordered>
         <thead>
-          <tr>
+          <tr style={{backgroundColor:"#DCDCDC"}}>
             {tableth.map((item) => (
               <th>{item}</th>
             ))}
@@ -75,7 +75,7 @@ function Income() {
         <tbody>
           {incomeLists.map((item) => (
             <>
-              <tr>
+              <tr style={{backgroundColor:"#fff"}}>
                 <td>{item.id}</td>
                 
                 <td>{item.incomeSource}</td>

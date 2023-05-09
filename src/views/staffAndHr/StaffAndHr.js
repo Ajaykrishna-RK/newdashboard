@@ -66,10 +66,10 @@ const handleDelete = ()=>{
     <div>
 
 
-<Table responsive="sm" className="mt-3">
+<Table responsive="sm" className="mt-3" striped bordered>
         <thead>
         
-                <tr>
+                <tr style={{backgroundColor:"#DCDCDC"}}>
                 {tableth.map((item)=>(
                     <th>{item}</th>
                     ))}
@@ -82,7 +82,7 @@ const handleDelete = ()=>{
 {staffs.map((item)=>(
  <>
 
- <tr>
+ <tr style={{backgroundColor:"#fff"}}>
  <td>{item.id}</td>
  <td> <img style={{width:"50px"}} src={item.image} alt=""  /> </td>
  <td>{item.Name}</td>

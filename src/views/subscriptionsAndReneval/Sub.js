@@ -32,9 +32,9 @@ function Sub() {
 
 
 
-<Table responsive="sm" className="mt-3">
+<Table responsive="sm" className="mt-3" striped bordered>
         <thead>
-          <tr>
+          <tr style={{backgroundColor:"#DCDCDC"}}>
             {tableth.map((item) => (
               <th>{item}</th>
             ))}
@@ -43,7 +43,7 @@ function Sub() {
         <tbody>
           {subs.map((item) => (
             <>
-              <tr>
+              <tr style={{backgroundColor:"#fff"}}>
                 <td>{item.id}</td>
 
                 <td>{item.userName}</td>
