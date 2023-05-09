@@ -55,7 +55,7 @@ if(username === "ajay" && password == 123){
   history.push("/dashboard")
  
 }else{
-  setValidationError(false)
+  setValidationError(true)
 }
   }
 
