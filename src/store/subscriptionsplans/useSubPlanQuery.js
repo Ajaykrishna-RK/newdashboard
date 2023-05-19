@@ -23,6 +23,7 @@ const Plan_details = (id) => {
     keepPreviousData: true,
     refetchOnWindowFocus: false,
     poll: 500,
+    enabled: id ? true : false
   });
 };
 

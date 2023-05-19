@@ -4,20 +4,15 @@ import useSubscriptionPlansQuery from "../../store/subscriptionsplans/useSubPlan
 import useUtilQuery from "../../store/util/useUtilQuery";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import clsx from "clsx";
 
 const subscriptionEditSchema = Yup.object().shape({
-  country: Yup.string(),
+  country: Yup.string().required("Choose the country"),
   name: Yup.string(),
-
   description: Yup.string(),
 });
 
-const initialValues = {
-  country: "",
-  name: "",
-  description: "",
-  is_active: false,
-};
+
 
 function EditPlan({ show, handleClose, id }) {
 
@@ -25,10 +20,15 @@ function EditPlan({ show, handleClose, id }) {
   const { data: subscriptionPlansDataDetails } =
   useSubscriptionPlansQuery.Plan_details(id);
 
-  useEffect(()=>{
-  
-    
-  },[show])
+  const initialValues = {
+    country: subscriptionPlansDataDetails?.data?.country,
+    name: subscriptionPlansDataDetails?.data?.name,
+    description: subscriptionPlansDataDetails?.data?.description,
+    is_active: subscriptionPlansDataDetails?.data?. is_active,
+  };
+
+
+console.log(subscriptionPlansDataDetails?.data?.name,"============")
 
 
   const { data: countriesList } = useUtilQuery.Countries_list();
@@ -36,37 +36,37 @@ function EditPlan({ show, handleClose, id }) {
   const { mutateAsync: editPlan, isSuccess } =
     useSubscriptionPlansQuery.Edit_plan();
 
-    // const formik = useFormik({
-    //   initialValues,
-    //   validationSchema: subscriptionEditSchema,
-    //   onSubmit: async (values, { setStatus, setSubmitting , resetForm}) => {
-      
-    //     try {
-    //       console.log(values,"==")
-    //       await editPlan({
-    //         id:id,
-    //           name: values?.name,
-    //         country: values?.country,
+    const formik = useFormik({
+      initialValues,
+      validationSchema: subscriptionEditSchema,
+      enableReinitialize:true,
+      onSubmit: async (values, { setStatus, setSubmitting , resetForm}) => {
+    
+        try {
+          console.log(values,"==")
+          await editPlan({
+            id:id,
+              name: values?.name,
+            country: values?.country,
             
-    //         description: values?.description,
+            description: values?.description,
          
-    //       });
-    //       resetForm()
-    //     } catch (error) {
-    //       console.error(error);
+          });
+          resetForm()
+        } catch (error) {
+          console.error(error);
          
-    //     }
-    //   },
-    // });
+        }
+      },
+    });
 
 
 
-  const [editdetails, setEditDetails] = useState({
-    id: null,
-    country: "",
-    name: "",
-    description: "",
-  });
+ 
+  //   country: "",
+  //   name: "",
+  //   description: "",
+  // });
 
   // const handleChange = (e) => {
   //   if (e.target.name === "country") {
@@ -84,31 +84,31 @@ function EditPlan({ show, handleClose, id }) {
   //   }
   // };
 
-  const handleChange = (e) =>{
-    setEditDetails({...editdetails, [e.target.name]:e.target.value})
+  // const handleChange = (e) =>{
+  //   setEditDetails({...editdetails, [e.target.name]:e.target.value})
 
-  }
+  // }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(editdetails);
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   console.log(editdetails);
 
-    try{
-    await editPlan({
-      id:id,
-      name:editdetails.name,
-      country:editdetails.country,
-      description:editdetails.description
-    })
-    }catch(err){
-      console.log(err)
-    }
-  };
+  //   try{
+  //   await editPlan({
+  //     id:id,
+  //     name:editdetails.name,
+  //     country:editdetails.country,
+  //     description:editdetails.description
+  //   })
+  //   }catch(err){
+  //     console.log(err)
+  //   }
+  // };
 
   return (
     <div>
       <Modal show={show} onHide={handleClose}>
-        <Form className="p-5" onSubmit={handleSubmit}>
+        <Form className="p-5" onSubmit={formik.handleSubmit}>
           <Modal.Header closeButton>
             <Modal.Title>Edit</Modal.Title>
           </Modal.Header>
@@ -118,7 +118,15 @@ function EditPlan({ show, handleClose, id }) {
                 <Form.Label>Country</Form.Label>
 
                 <Form.Select
-           onChange={(e)=>handleChange(e)} value={editdetails.country} name="country"
+            {...formik.getFieldProps("country")}
+            className={clsx(
+              "form-control form-control-md form-control-solid",
+              {
+                "is-invalid":
+                  formik.touched.country && formik.errors.country,
+              }
+            )}
+            style={{ border: "1px solid #CCDBE1" }}
                 >
                   <option value="">Choose</option>
                   {countriesList?.data?.results?.map((country) => {
@@ -129,13 +137,23 @@ function EditPlan({ show, handleClose, id }) {
                     );
                   })}
                 </Form.Select>
+
+
+                {formik.touched.country && formik.errors.country && (
+                  <div className="fv-plugins-message-container text-danger mt-1">
+                    <span role="alert">{formik.errors.country}</span>
+                  </div>
+                )}
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formGridAddress2">
                 <Form.Label>Name</Form.Label>
                 <Form.Control
-                  onChange={(e)=>handleChange(e)} value={editdetails.name} name="name"
+                  {...formik.getFieldProps("name")}
+                 
                   placeholder="name"
+                 
+                  
                 />
               </Form.Group>
 
@@ -143,7 +161,7 @@ function EditPlan({ show, handleClose, id }) {
                 <Form.Label>Description</Form.Label>
                 <Form.Control
                   placeholder="description"
-                  onChange={(e)=>handleChange(e)} value={editdetails.description} name="description"
+                  {...formik.getFieldProps("description")}
                   
                 />
               </Form.Group>

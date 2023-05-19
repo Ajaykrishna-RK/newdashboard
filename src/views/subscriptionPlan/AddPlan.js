@@ -5,6 +5,8 @@ import { useFormik } from "formik";
 import clsx from "clsx";
 import useSubscriptionPlansQuery from "../../store/subscriptionsplans/useSubPlanQuery";
 import useUtilQuery from "../../store/util/useUtilQuery";
+import { toast } from "react-toastify";
+
 
 const subscriptionSchema = Yup.object().shape({
     country: Yup.string().required("Country is required"),
@@ -29,13 +31,19 @@ const subscriptionSchema = Yup.object().shape({
 
 function AddPlan({ show, handleClose }) {
 
+
+
   const { data: countriesList } = useUtilQuery.Countries_list();
 
     const { mutateAsync: addPlan, isSuccess } =
     useSubscriptionPlansQuery.Add_plan();
 
+
+    console.log(isSuccess , "scssss")
+
     const [status,setStatus] = useState(false)
-    
+   const [add,setAdd] = useState(false)
+
   const formik = useFormik({
     initialValues,
     validationSchema: subscriptionSchema,
@@ -49,7 +57,14 @@ function AddPlan({ show, handleClose }) {
           description: values.description,
           is_active: status,
         });
-        resetForm()
+          
+  resetForm()
+  if(formik.values === "" ){
+    setAdd(false)
+  }else if (formik.values){
+    setAdd(true)
+  }
+  
       } catch (error) {
         console.error(error);
        
@@ -57,6 +72,10 @@ function AddPlan({ show, handleClose }) {
     },
   });
 
+
+
+
+ 
   return (
     <div>
       <Modal show={show} onHide={handleClose}>
@@ -154,7 +173,7 @@ function AddPlan({ show, handleClose }) {
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleClose} type="submit">
+            <Button variant="primary" onClick={ add &&  handleClose} type="submit">
               Add Plan
             </Button>
           </Modal.Footer>

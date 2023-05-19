@@ -2,6 +2,7 @@ import axios from "axios";
 import { useMutation } from "react-query";
 import { useHistory } from "react-router-dom";
 import DataService from "../DataService";
+import { toast } from "react-toastify";
 
 const API_URL = "https://dev2.enfono.com/api_rentpe_saas/api/v1";
 
@@ -26,7 +27,8 @@ const Login = (e) => {
         history.push("/dashboard");
       },
       onError: (error) => {
-        console.log(error);
+        toast.error(error?.response?.data?.message)
+       console.log(error)
       },
     }
   );

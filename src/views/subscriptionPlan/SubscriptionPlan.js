@@ -3,8 +3,9 @@ import { Button, Table } from "react-bootstrap";
 import AddPlan from "./AddPlan";
 import useSubscriptionPlansQuery from "../../store/subscriptionsplans/useSubPlanQuery";
 import EditPlan from "./EditPlan";
+import DeletePlan from "./DeletePlan";
 
-const tableth = [ "Name",   "Country", "Description", "Status", "Action"];
+const tableth = ["Name", "Country", "Description", "Status", "Action"];
 
 function SubscriptionPlan() {
   const [addplan, setAddPlan] = useState(false);
@@ -13,15 +14,23 @@ function SubscriptionPlan() {
   const handleAddShow = () => setAddPlan(true);
 
   const [editplan, setEditPlan] = useState(false);
+  const [subid, setSubId] = useState(null);
 
   const handleEditClose = () => setEditPlan(false);
   const handleEditShow = (id) => {
     setEditPlan(true);
-  setSubId(id)
-  }
+    setSubId(id);
+  };
 
-  const [subid,setSubId] = useState(null)
-  const [deletedata,setDeleteData] = useState(null)
+  const [deleteplan, setDeletePlan] = useState(false);
+  const [delid, setDelId] = useState(null);
+
+  const handleDeleteClose = () => setDeletePlan(false);
+
+  const handleDeleteShow = (id) => {
+    setDeletePlan(true);
+    setDelId(id);
+  };
 
   const [search, setSearch] = useState("");
   const [limit] = useState(10);
@@ -39,19 +48,9 @@ function SubscriptionPlan() {
     isFetching,
   } = useSubscriptionPlansQuery.Plans_list(query);
 
-
-
-  const { mutateAsync: deletePlan, isSuccess } =
-  useSubscriptionPlansQuery.DeletePlan();
-
-
- 
-
   // subscriptionPlansData?.data?.results?.map((item) => {
   //   console.log(item);
   // });
-
-
 
   // let planArray = []
 
@@ -87,18 +86,28 @@ function SubscriptionPlan() {
                   <Button
                     variant="primary "
                     className="m-1"
-                    onClick={()=>handleEditShow(item?.id)}
+                    onClick={() => handleEditShow(item?.id)}
                   >
                     Edit
                   </Button>
-                  <Button variant="primary" onClick={()=>deletePlan(item?.id)}>Delete</Button>
+                  <Button
+                    variant="primary"
+                    onClick={() => handleDeleteShow(item?.id)}
+                  >
+                    Delete
+                  </Button>
                 </td>
               </tr>
             </>
           ))}
         </tbody>
       </Table>
-      <EditPlan  id={subid} show={editplan} handleClose={handleEditClose} />
+      <DeletePlan
+        show={deleteplan}
+        id={delid}
+        handleClose={handleDeleteClose}
+      />
+      <EditPlan id={subid} show={editplan} handleClose={handleEditClose} />
       <AddPlan show={addplan} handleClose={handleAddClose} />
     </div>
   );
