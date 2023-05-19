@@ -29,6 +29,7 @@ import { theme_scheme_direction } from "../../../../store/setting/reducers";
 
 import RadioBtn from "../../../setting/elements/radio-btn";
 import Swal from "sweetalert2";
+import useLoginQuery from "../../../../store/auth/useAuthQuery";
 
 const Headerpro = memo((props) => {
   const history = useHistory();
@@ -101,11 +102,16 @@ const Headerpro = memo((props) => {
   //   history.push("/auth/sign-in");
   // };
 
-  const Logout = () =>{
-   
-   history.push("/auth/sign-in")
-    
-  }
+  const { mutateAsync: logout } = useLoginQuery.Logout();
+
+  const Logout = () => {
+    try {
+      logout();
+      history.push("/auth/sign-in");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const [show, setShow] = useState(true);
 
@@ -180,8 +186,6 @@ const Headerpro = memo((props) => {
 
   const handleClose1 = () => setShow4(false);
   const handleShow1 = () => setShow4(true);
-
-  
 
   return (
     <Navbar expand="xl" className={`nav iq-navbar ${headerNavbar} `}>
@@ -356,7 +360,7 @@ const Headerpro = memo((props) => {
                 </div>
               </Dropdown.Menu>
             </Dropdown>
-           
+
             <Nav.Item
               className=" iq-full-screen d-none d-xl-block"
               onClick={() => setShow(!show)}
@@ -438,7 +442,6 @@ const Headerpro = memo((props) => {
                 </div>
               </Nav.Link>
             </Nav.Item>
-           
 
             <Dropdown as="li" className="nav-item iq-tour ps-3 ps-lg-0">
               <Dropdown.Toggle
@@ -466,16 +469,18 @@ const Headerpro = memo((props) => {
                     </svg>
                   </span>
                 </div>
-              
               </Dropdown.Toggle>
 
               <Dropdown.Menu variant="end mt-3">
-                
                 {/* <Dropdown.Item > */}
-<div className="justify-content-center align-items-center d-flex">
-<button style={{backgroundColor:"#fff",border:"none"}} onClick={() => Logout()}>Logout</button>
-</div>
-
+                <div className="justify-content-center align-items-center d-flex">
+                  <button
+                    style={{ backgroundColor: "#fff", border: "none" }}
+                    onClick={() => Logout()}
+                  >
+                    Logout
+                  </button>
+                </div>
 
                 {/* </Dropdown.Item> */}
               </Dropdown.Menu>

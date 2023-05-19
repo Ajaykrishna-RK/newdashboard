@@ -16,11 +16,16 @@ import "react-toastify/dist/ReactToastify.css";
 import { store } from "./store";
 
 import "./i18n";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+
+const queryClient = new QueryClient();
 
 ReactDOM.render(
   <StrictMode>
     <BrowserRouter basename="/">
-      <Provider store={store}>
+    <QueryClientProvider client={queryClient}>
+    <Provider store={store}>
         <App />
         <ToastContainer
           position="top-right"
@@ -34,6 +39,8 @@ ReactDOM.render(
           pauseOnHover
         />
       </Provider>
+    </QueryClientProvider>
+     
     </BrowserRouter>
   </StrictMode>,
   document.getElementById("root")

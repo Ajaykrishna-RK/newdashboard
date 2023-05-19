@@ -33,6 +33,10 @@ const Accounting = lazy(()=>import("../views/accounting/Accounting"))
 
 const Setting = lazy(()=>import("../views/setting/Setting"))
 
+// subscription Plan 
+
+const SubscriptionPlan = lazy(()=>import("../views/subscriptionPlan/SubscriptionPlan"))
+
 const DefaultRouter = memo(() => {
   return (
     <TransitionGroup>
@@ -47,6 +51,7 @@ const DefaultRouter = memo(() => {
             <Route path="/staffandhr" exact component={StaffAndHr} />
             <Route path="/accounting" exact component={Accounting} />
             <Route path="/setting" exact component={Setting} />
+            <Route path="/subscriptions-plans" exact component={SubscriptionPlan} />
 
           </Switch>
         </Suspense>

@@ -22,6 +22,7 @@ const userRoutes = [
   { path: "/staffandhr", component: Default },
   { path: "/accounting", component: Default },
   { path: "/setting", component: Default },
+  { path: "/subscriptions-plans", component: Default },
   { path: "/", component: () => <Redirect to="/auth/sign-in" /> },
   {
     path: "/errors/error404",

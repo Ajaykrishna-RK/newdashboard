@@ -3,15 +3,12 @@ import api from "../../api";
 
 export const loginUser = createAsyncThunk(
   "users/login",
-  async ({ username, password }, { rejectWithValue }) => {
+  async (logincred, { rejectWithValue }) => {
     try {
       const response = await api.actionHandler({
         url: api.loginURL,
         method: "POST",
-        data: {
-          username,
-          password,
-        },
+        data: logincred,
       });
 
       let data = await response;
@@ -56,7 +53,7 @@ const userSlice = createSlice({
     [loginUser.fulfilled]: (state, { payload }) => {
       console.log(payload);
       state.username = payload.data.data.user.username;
-      localStorage.setItem("username", payload.data.data.user.username);
+      localStorage.setItem("name", payload.data.data.user.name);
       state.userID = payload.data.data.user.id;
       localStorage.setItem("userID", payload.data.data.user.id);
       state.loginFetching = false;
@@ -67,6 +64,7 @@ const userSlice = createSlice({
       state.loginFetching = false;
       state.loginError = true;
       state.loginErrorMessage = action?.payload;
+      console.log(action)
     },
     [loginUser.pending]: (state) => {
       state.loginFetching = true;

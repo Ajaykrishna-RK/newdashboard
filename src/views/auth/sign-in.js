@@ -18,21 +18,46 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { loginUser, clearLoginState } from "../../store/login/loginSlice";
 
+
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import ValidationErrors from "./ValidationErrors";
+import useLoginQuery from "../../store/auth/useAuthQuery";
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import clsx from "clsx";
+
+
+
+
+const loginSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Email is invalid")
+    .required("Username is required"),
+  password: Yup.string()
+    .min(3, "Minimum 3 symbols")
+    .max(50, "Maximum 50 symbols")
+    .required("Password is required"),
+});
+
+const initialValues = {
+  email: "",
+  password: "",
+  device:""
+};
+
 
 
 const SignIn = memo(() => {
-
-
-
   const appName = useSelector(SettingSelector.app_name);
   let history = useHistory();
   const dispatch = useDispatch();
 
-  const [username, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+  const [logincred, setLoginCred] = useState({
+    email: "",
+    password: "",
+   
+  });
 
   const { loginSuccess, loginError, loginErrorMessage } = useSelector(
     (state) => state.userSlice
@@ -48,17 +73,50 @@ const SignIn = memo(() => {
   //   history.push("/dashboard");
   // };
 
-  const [validationError,setValidationError] = useState(false)
-  const Login = (e) =>{
-    e.preventDefault()
-if(username === "ajay" && password == 123){
-  history.push("/dashboard")
- 
-}else{
-  setValidationError(true)
-}
-  }
+  const handleChange = (e) => {
+    setLoginCred({ ...logincred, [e.target.name]: e.target.value });
+  };
+  const { mutateAsync: login } = useLoginQuery.Login();
 
+  // const Login = async (e) => {
+  //   e.preventDefault()
+  //   try {
+  //     await login({
+  //       email: logincred.email,
+  //       password:logincred.password,
+  //       device: "device",
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+     
+  //   }
+  // };
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema: loginSchema,
+    onSubmit: async (values, { setStatus, setSubmitting }) => {
+  
+      try {
+       
+        await login({
+          email: values.email,
+          password: values.password,
+          device: "admin",
+
+        });
+      } catch (error) {
+        console.error(error);
+        setStatus("invald")
+        setSubmitting(false)
+
+        
+      }
+    },
+  });
+
+
+ 
   useEffect(() => {
     if (loginError) {
       // alert(loginErrorMessage);
@@ -76,21 +134,14 @@ if(username === "ajay" && password == 123){
 
     if (loginSuccess) {
       dispatch(clearLoginState());
-      
     }
   }, [loginError, loginSuccess]);
-
-
- 
 
   return (
     <Fragment>
       <section className="login-content">
-       
         <Row className="m-0 align-items-center bg-white vh-100">
-        
           <Col md="6">
-         
             <Row className="justify-content-center">
               <Col md="10">
                 <Card className="card-transparent shadow-none d-flex justify-content-center mb-0 auth-card">
@@ -101,28 +152,46 @@ if(username === "ajay" && password == 123){
                     >
                       <div className="mb-4">
                         <div className="logo-normal">
-                         <h1>Listing App</h1>
+                          <h1>Listing App</h1>
                         </div>
                       </div>
                     </Link>
                     <h2 className="mb-2 text-center">Sign In</h2>
                     <p className="text-center">Login to stay connected.</p>
-                    <Form onSubmit={(e) => Login(e)}>
+                    <Form   
+                    onSubmit={formik.handleSubmit}
+                      >
                       <Row>
                         <Col lg="12">
                           <Form.Group className="form-group">
                             <Form.Label htmlFor="email" className="">
-                              Username
+                              email
                             </Form.Label>
                             <Form.Control
                               type="text"
-                              className=""
-                              value={username}
-                              onChange={(e) => setUserName(e.target.value)}
+                              name="email"
+                              {...formik.getFieldProps("email")}
+                              style={{ border: "1px solid #b3c3f3" }}
+                              className={clsx(
+                                "form-control form-control-md form-control-solid",
+                                {
+                                  "is-invalid":
+                                    formik.touched.email &&
+                                    formik.errors.email,
+                                }
+                              )}
                               id="text"
                               aria-describedby="email"
                               placeholder=" "
                             />
+                             {formik.touched.email  &&
+                              formik.errors.email && (
+                                <div className="fv-plugins-message-container text-danger">
+                                  <span role="alert">
+                                    {formik.errors.email}
+                                  </span>
+                                </div>
+                              )}
                           </Form.Group>
                         </Col>
                         <Col lg="12" className="">
@@ -132,15 +201,35 @@ if(username === "ajay" && password == 123){
                             </Form.Label>
                             <Form.Control
                               type="password"
-                              className=""
-                              value={password}
-                              onChange={(e) => setPassword(e.target.value)}
+                            
+                              name="password"
+                            
                               id="password"
                               aria-describedby="password"
                               placeholder=" "
+                              {...formik.getFieldProps("password")}
+                              style={{ border: "1px solid #b3c3f3" }}
+                              className={clsx(
+                                "form-control form-control-md form-control-solid",
+                                {
+                                  "is-invalid":
+                                    formik.touched.email &&
+                                    formik.errors.email,
+                                }
+                              )}
+
                             />
+                             {formik.touched.password  &&
+                              formik.errors.password && (
+                                <div className="fv-plugins-message-container text-danger">
+                                  <span role="alert">
+                                    {formik.errors.password}
+                                  </span>
+                                </div>
+                              )}
+
                           </Form.Group>
-                          {validationError && <ValidationErrors/>}
+                          {/* {validationError && <ValidationErrors/>} */}
                         </Col>
                         <Col lg="12" className="d-flex justify-content-between">
                           <Form.Check className="form-check mb-3">
@@ -156,11 +245,7 @@ if(username === "ajay" && password == 123){
                         </Col>
                       </Row>
                       <div className="d-flex justify-content-center">
-                        <Button
-                         
-                          type="submit"
-                          variant="btn btn-primary"
-                        >
+                        <Button type="submit" variant="btn btn-primary">
                           Sign In
                         </Button>
                       </div>
@@ -216,7 +301,6 @@ if(username === "ajay" && password == 123){
                   />
                 </g>
               </svg>
-              
             </div>
           </Col>
           <Col
@@ -224,7 +308,7 @@ if(username === "ajay" && password == 123){
             className="d-md-block d-none bg-primary p-0 mt-n1 vh-100 overflow-hidden"
           >
             <Image
-              src={''}
+              src={""}
               className="Image-fluid gradient-main "
               alt="images"
             />

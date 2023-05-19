@@ -12,7 +12,8 @@ const actionHandler = (payload) => {
 
   return new Promise((resolve, reject) => {
     //Development
-    payload.baseURL = "";
+    payload.baseURL = "https://dev2.enfono.com/api_rentpe_saas/api/v1/";
+
 
     axios(payload)
       .then((response) => {
@@ -65,7 +66,7 @@ axios.interceptors.response.use(undefined, function (err) {
 
 export default {
   /* auth URLs */
-  loginURL: "auth/login/", // [POST]
+  loginURL: "/auth/login/", // [POST]
   logoutURL: "auth/logout/", // [POST]
   profileURL: "auth/profile/", // [GET, PUT]
 
