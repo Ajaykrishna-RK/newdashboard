@@ -88,7 +88,7 @@ console.log(subscriptionPlansDataDetails?.data?.name,"============")
             )}
             style={{ border: "1px solid #CCDBE1" }}
                 >
-                  <option value="">Choose</option>
+                  <option value="">{formik.values.country}</option>
                   {countriesList?.data?.results?.map((country) => {
                     return (
                       <option key={country.id} value={country.id}>

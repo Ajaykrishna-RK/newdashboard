@@ -77,6 +77,18 @@ function AddPlan({ show, handleClose }) {
   }, [isSuccess]);
 
  
+  const handleSave = () => {
+    if (
+      formik.values.country === "" ||
+      formik.values.description === "" ||
+      formik.values.name === "" ) {
+      console.log("open");
+    } else {
+      handleClose();
+    }
+  };
+
+
   return (
     <div>
       <Modal show={show} onHide={handleClose}>
@@ -174,7 +186,7 @@ function AddPlan({ show, handleClose }) {
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={   handleClose} type="submit">
+            <Button variant="primary" onClick={handleSave} type="submit">
               Add Plan
             </Button>
           </Modal.Footer>
