@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -59,11 +59,7 @@ function AddPlan({ show, handleClose }) {
         });
           
   resetForm()
-  if(formik.values === "" ){
-    setAdd(false)
-  }else if (formik.values){
-    setAdd(true)
-  }
+
   
       } catch (error) {
         console.error(error);
@@ -73,7 +69,12 @@ function AddPlan({ show, handleClose }) {
   });
 
 
-
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Plan added successfully");
+   
+    }
+  }, [isSuccess]);
 
  
   return (
@@ -173,7 +174,7 @@ function AddPlan({ show, handleClose }) {
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={ add &&  handleClose} type="submit">
+            <Button variant="primary" onClick={   handleClose} type="submit">
               Add Plan
             </Button>
           </Modal.Footer>

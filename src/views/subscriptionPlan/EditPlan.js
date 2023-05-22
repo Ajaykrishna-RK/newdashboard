@@ -63,47 +63,7 @@ console.log(subscriptionPlansDataDetails?.data?.name,"============")
 
 
  
-  //   country: "",
-  //   name: "",
-  //   description: "",
-  // });
-
-  // const handleChange = (e) => {
-  //   if (e.target.name === "country") {
-  //     const selectedCountry = countriesList?.data?.results?.find(
-  //       (country) => country.id === e.target.value
-  //     );
-  //     setEditDetails({
-  //       ...editdetails,
-  //       id: e.target.value,
-  //       country: e.target.value,
-  //       name: selectedCountry?.name || "",
-  //     });
-  //   } else {
-  //     setEditDetails({ ...editdetails, [e.target.name]: e.target.value });
-  //   }
-  // };
-
-  // const handleChange = (e) =>{
-  //   setEditDetails({...editdetails, [e.target.name]:e.target.value})
-
-  // }
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   console.log(editdetails);
-
-  //   try{
-  //   await editPlan({
-  //     id:id,
-  //     name:editdetails.name,
-  //     country:editdetails.country,
-  //     description:editdetails.description
-  //   })
-  //   }catch(err){
-  //     console.log(err)
-  //   }
-  // };
+ 
 
   return (
     <div>
